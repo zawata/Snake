@@ -12,23 +12,25 @@ namespace Snake
 
     struct COORD : IEnumerable
     {
-        public Int16 first
+        private Int16 _first;
+        public Int16 First
         {
-            get { return first; }
-            set { first = value; }
+            get { return _first; }
+            set { _first = value; }
         }
-        public Int16 second
+        private Int16 _second;
+        public Int16 Second
         {
-            get { return second; }
-            set { second = value; }
+            get { return _second; }
+            set { _second = value; }
         }
         private bool addfirst;
         public void Add(Int16 value) //this makes me laugh really hard but it works!
         {
             if (addfirst)
-                this.first = value;
+                this.First = value;
             else
-                this.second = value;
+                this.Second = value;
             addfirst = !addfirst;
         }
         public IEnumerator GetEnumerator(){return null;} //only here for compatibility reasons

@@ -41,8 +41,10 @@
     <Compile Include="Body_Segment.cs" />
     <Compile Include="Data_Types.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="LinearNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LinkedQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

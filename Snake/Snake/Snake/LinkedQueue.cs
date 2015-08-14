@@ -5,17 +5,12 @@ using System.Text;
 
 namespace Snake
 {
-        public static class LinkedQueue<T>
+    public static class LinkedQueue<T>
     {
-        private int count;
-        private LinearNode<T> head, tail; //front, back
+        private static int count;
+        private static LinearNode<T> head, tail; //front, back
 
-        public LinkedQueue()
-        {
-            count = 0;
-            head = tail = null;
-        }
-        public void enqueue(T element)
+        public static void enqueue(T element)
         {
             LinearNode<T> node = new LinearNode<T>(element);
     
@@ -27,7 +22,7 @@ namespace Snake
             tail = node;
             count++;
         }
-        public T dequeue()
+        public static T dequeue()
         {
             if (isEmpty())
                 throw new Exception("queue");
@@ -41,20 +36,20 @@ namespace Snake
     
             return result;
         }
-        public T first()
+        public static T first()
         {
             return head.getElement();
         }
 
-        public bool isEmpty()
+        public static bool isEmpty()
         {
             return count == 0;
         }
-        public int size()
+        public static int size()
         {
         	return count;
         }
-        public String toString()
+        public static String toString()
         {
         	LinearNode<T> node = head;
         	
