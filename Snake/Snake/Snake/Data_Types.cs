@@ -25,12 +25,12 @@ namespace Snake
             set { _second = value; }
         }
         private bool addfirst;
-        public void Add(Int16 value) //this makes me laugh really hard but it works!
+        public void Add(int value) //this makes me laugh really hard but it works!
         {
             if (addfirst)
-                this.First = value;
+                this.First = (short)value;
             else
-                this.Second = value;
+                this.Second = (short)value;
             addfirst = !addfirst;
         }
         public IEnumerator GetEnumerator(){return null;} //only here for compatibility reasons

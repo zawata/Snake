@@ -17,17 +17,10 @@ namespace Snake
             get { return _gridpos; }
             set { _gridpos = value; }
         }
-        private COORD _screen_coord
-        private COORD Screen_Coordinates
-        {
-            get { return _screen_coord; }
-            set { _screen_coord = value; }
-        }
         Texture2D texture;
-        public Body_Segment(GraphicsDevice graphicsdevice, COORD local, COORD global)
+        public Body_Segment(GraphicsDevice graphicsdevice, COORD local)
         {
-            gridpos = local;
-            screen_coord = global;
+            this.GridPosition = local;
 
             texture = new Texture2D(graphicsdevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
@@ -36,7 +29,7 @@ namespace Snake
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, new Rectangle(screen_coord.First, screen_coord.Second, 20, 20), Color.White);
+            spriteBatch.Draw(texture, new Rectangle(Body.ConvertCoord((int)GridPosition.First), Body.ConvertCoord((int)GridPosition.Second), 20, 20), Color.White);
             spriteBatch.End();
         }
     }

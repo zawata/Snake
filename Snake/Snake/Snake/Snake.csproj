@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Body.cs" />
     <Compile Include="Body_Segment.cs" />
     <Compile Include="Data_Types.cs" />
     <Compile Include="Game1.cs" />
