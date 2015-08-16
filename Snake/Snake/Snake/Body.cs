@@ -32,15 +32,15 @@ namespace Snake
             
             Keys[] keys = Keyboard.GetState().GetPressedKeys();
             bool moved = false;
-            if (keys.GetLength(0) > 0)
+            if (keys.GetLength(0) > 0) //if key pressed
             {
-                foreach (Keys key in keys)
+                foreach (Keys key in keys) //iterate through all pressed keys
                 {
                     switch (key)
                     {
                         case Keys.Left:
                                 newpos = new Vector2(head_pos.X - 1, head_pos.Y);
-                            moved = true;
+                            moved = true; 
                             old_direction = 1;
                             break;
                         case Keys.Up:
@@ -61,13 +61,13 @@ namespace Snake
                         default:
                             break;
                     }
-                    if (moved)
+                    if (moved) //only hit first key
                         break;
                 }
             }
             else
             {
-                switch (old_direction)
+                switch (old_direction) // move forward anyways
                 {
                     case 1:
                             newpos = new Vector2(head_pos.X - 1, head_pos.Y);
@@ -85,18 +85,18 @@ namespace Snake
                         break;
                 }
             }
-                addSegment(newpos);
-                drop_last_Segment();
+                addSegment(newpos); //add new head segments
+                drop_last_Segment(); //remove the last tail segment
         }
         public static void draw(SpriteBatch spriteBatch)
         {
-            foreach (Body_Segment element in body_queue)
+            foreach (Body_Segment element in body_queue) //iterate through all body sements...
             {
-                element.Draw(spriteBatch);
+                element.Draw(spriteBatch); //...and draw them
             }
         }
 
-        public static void addSegment(Vector2 gridpos)
+        public static void addSegment(Vector2 gridpos) //shorter version
         {
             body_queue.Enqueue(new Body_Segment(Game1.graphics.GraphicsDevice, gridpos));
         }
@@ -105,9 +105,10 @@ namespace Snake
             if (Max_Segments >= body_queue.Count) return;
             body_queue.Dequeue();
         }
-        public static int ConvertCoord(int num)
+        public static int ConvertCoord(int num) //from grid to window coord
         {
-            return (num * 25) + 5;
+
+            return (num * 25) + 5; 
         }
     }
 }
