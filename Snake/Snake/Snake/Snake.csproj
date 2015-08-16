@@ -43,6 +43,7 @@
     <Compile Include="Data_Types.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="LinearNode.cs" />
+    <Compile Include="LinkedList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LinkedQueue.cs" />

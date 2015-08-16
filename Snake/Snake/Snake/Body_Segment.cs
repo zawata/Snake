@@ -11,14 +11,9 @@ namespace Snake
 {
     class Body_Segment
     {
-        private COORD _gridpos;
-        public COORD GridPosition
-        {
-            get { return _gridpos; }
-            set { _gridpos = value; }
-        }
+        public Vector2 GridPosition { get; private set; }
         Texture2D texture;
-        public Body_Segment(GraphicsDevice graphicsdevice, COORD local)
+        public Body_Segment(GraphicsDevice graphicsdevice, Vector2 local)
         {
             this.GridPosition = local;
 
@@ -29,7 +24,7 @@ namespace Snake
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, new Rectangle(Body.ConvertCoord((int)GridPosition.First), Body.ConvertCoord((int)GridPosition.Second), 20, 20), Color.White);
+            spriteBatch.Draw(texture, new Rectangle(Body.ConvertCoord((int)GridPosition.X), Body.ConvertCoord((int)GridPosition.Y), 20, 20), Color.White);
             spriteBatch.End();
         }
     }

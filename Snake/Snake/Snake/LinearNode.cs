@@ -5,28 +5,38 @@ using System.Text;
 
 namespace Snake
 {
-    public class LinearNode<T>
+    public class LinearDoubleNode<T>
     {
-        private LinearNode<T> next;
+        private LinearDoubleNode<T> next, prev;
         private T element;
 
-        public LinearNode()
+        public LinearDoubleNode()
         {
             next = null;
+            prev = null;
             element = default(T);
         }
-        public LinearNode(T elem)
+        public LinearDoubleNode(T elem)
         {
             next = null;
+            prev = null;
             element = elem;
         }
-        public LinearNode<T> getNext()
+        public LinearDoubleNode<T> getNext()
         {
             return next;
         }
-        public void setNext(LinearNode<T> node)
+        public void setNext(LinearDoubleNode<T> node)
         {
             next = node;
+        }
+        public LinearDoubleNode<T> getPrev()
+        {
+            return prev;
+        }
+        public void setPrev(LinearDoubleNode<T> node)
+        {
+            prev = node;
         }
         public T getElement()
         {
