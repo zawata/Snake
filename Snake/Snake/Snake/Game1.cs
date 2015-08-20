@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Snake
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
+        public static float FPS = 10;
+
+        int frameRate = 0;
+        int frameCounter = 0;
+        TimeSpan elapsedTime = TimeSpan.Zero;
 
         public Game1()
         {
@@ -35,17 +39,35 @@ namespace Snake
 
         protected override void Update(GameTime gameTime)
         {
-            //this.IsFixedTimeStep = false;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
+            Vector2 NextPosition;
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Body.move();
+            elapsedTime += gameTime.ElapsedGameTime;
+
+            if (elapsedTime > TimeSpan.FromSeconds(1.0F/FPS))
+            {
+                elapsedTime -= TimeSpan.FromSeconds(1.0F/FPS);
+                frameRate = frameCounter;
+                frameCounter = 0;
+            }
+            else
+            {
+                base.Update(gameTime);
+                return;
+            }
+
+            NextPosition = Body.getNextPos();
+            Body.move(NextPosition);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            frameCounter++;
+
             GraphicsDevice.Clear(Color.Black);
             Body.draw(spriteBatch);
             base.Draw(gameTime);

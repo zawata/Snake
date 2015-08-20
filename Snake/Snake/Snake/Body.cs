@@ -15,12 +15,18 @@ namespace Snake
         public static int Max_Segments {get; set;}
         static Body()
         {
-            Max_Segments = 5;
+            Max_Segments = 100;
             addSegment(new Vector2(1,1));
         }
         private static int old_direction = 0;
-        private static Vector2 newpos = default(Vector2);
-        public static void move()
+        private static Vector2 newpos = new Vector2(0,0);
+
+        public static void move(Vector2 pos)
+        {
+            addSegment(pos);
+            drop_last_Segment();
+        }
+        public static Vector2 getNextPos()
         {
             //direction
             // 1 = left
@@ -36,57 +42,83 @@ namespace Snake
             {
                 foreach (Keys key in keys) //iterate through all pressed keys
                 {
-                    switch (key)
+                    switch (key) // change direction based on keypress or if not moving initially
                     {
                         case Keys.Left:
+                            if (old_direction != 3 || old_direction == 0)
+                            {
                                 newpos = new Vector2(head_pos.X - 1, head_pos.Y);
-                            moved = true; 
-                            old_direction = 1;
+                                moved = true;
+                                old_direction = 1;
+                            }
                             break;
                         case Keys.Up:
+                            if (old_direction != 4 || old_direction == 0)
+                            {
                                 newpos = new Vector2(head_pos.X, head_pos.Y - 1);
-                            moved = true;
-                            old_direction = 2;
+                                moved = true;
+                                old_direction = 2;
+                            }
                             break;
                         case Keys.Right:
+                            if (old_direction != 1 || old_direction == 0)
+                            {
                                 newpos = new Vector2(head_pos.X + 1, head_pos.Y);
-                            moved = true;
-                            old_direction = 3;
+                                moved = true;
+                                old_direction = 3;
+                            }
                             break;
                         case Keys.Down:
+                            if (old_direction != 2 || old_direction == 0)
+                            {
                                 newpos = new Vector2(head_pos.X, head_pos.Y + 1);
-                            moved = true;
-                            old_direction = 4;
+                                moved = true;
+                                old_direction = 4;
+                            }
                             break;
                         default:
                             break;
                     }
-                    if (moved) //only hit first key
-                        break;
+                    switch (old_direction) // move forward if key already pressed
+                    {
+                        case 1:
+                            newpos = new Vector2(head_pos.X - 1, head_pos.Y);
+                            break;
+                        case 2:
+                            newpos = new Vector2(head_pos.X, head_pos.Y - 1);
+                            break;
+                        case 3:
+                            newpos = new Vector2(head_pos.X + 1, head_pos.Y);
+                            break;
+                        case 4:
+                            newpos = new Vector2(head_pos.X, head_pos.Y + 1);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             else
             {
-                switch (old_direction) // move forward anyways
+                switch (old_direction) // move forward anyways if key not already pressed
                 {
                     case 1:
-                            newpos = new Vector2(head_pos.X - 1, head_pos.Y);
+                        newpos = new Vector2(head_pos.X - 1, head_pos.Y);
                         break;
                     case 2:
-                            newpos = new Vector2(head_pos.X, head_pos.Y - 1);
+                        newpos = new Vector2(head_pos.X, head_pos.Y - 1);
                         break;
                     case 3:
-                            newpos = new Vector2(head_pos.X + 1, head_pos.Y);
+                        newpos = new Vector2(head_pos.X + 1, head_pos.Y);
                         break;
                     case 4:
-                            newpos = new Vector2(head_pos.X, head_pos.Y + 1);
+                        newpos = new Vector2(head_pos.X, head_pos.Y + 1);
                         break;
                     default:
                         break;
                 }
             }
-                addSegment(newpos); //add new head segments
-                drop_last_Segment(); //remove the last tail segment
+            return newpos; //add new head segments
         }
         public static void draw(SpriteBatch spriteBatch)
         {
