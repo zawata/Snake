@@ -229,3 +229,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# User Added
+# =========================
+
+# VS-code Folders
+.vs/
+.vscode/
