@@ -30,8 +30,8 @@ namespace Snake
 
 		public static void setScreen()
 		{
-			Bounds.Width = Cell2pix((int)Size.X);
-			Bounds.Height = Cell2pix((int)Size.Y);
+			Bounds.Width = Cell2pix((int)Size.X + 1);
+			Bounds.Height = Cell2pix((int)Size.Y + 1);
 		}
 
 		public static Vector2 checkBounds(Vector2 pos)

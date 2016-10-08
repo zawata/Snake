@@ -37,6 +37,7 @@ namespace Snake
 			Vector2 headPosition = body_queue.Last<Body_Segment>().GridPosition;
 			Vector2 nextPosition = new Vector2(0,0);
 			Keys[] keys = Keyboard.GetState().GetPressedKeys();
+			bool directionSet = false;
 
 			if (keys.GetLength(0) > 0) //if key pressed
 			{
@@ -46,23 +47,40 @@ namespace Snake
 					{
 						case Keys.Left:
 							if (currentDirection != 3)
+							{
 								currentDirection = 1;
+								directionSet = true;
+							}
 							break;
 						case Keys.Up:
 							if (currentDirection != 4)
+							{
 								currentDirection = 2;
+								directionSet = true;
+							}
 							break;
 						case Keys.Right:
 							if (currentDirection != 1)
+							{
 								currentDirection = 3;
+								directionSet = true;
+							}
 							break;
 						case Keys.Down:
 							if (currentDirection != 2)
+							{
 								currentDirection = 4;
+								directionSet = true;
+							}
 							break;
 						default:
 							// Other Keys
 							break;
+					}
+					if(directionSet)
+					{
+						directionSet = false;
+						break;
 					}
 				}
 			}
@@ -86,12 +104,6 @@ namespace Snake
 			return nextPosition; //return next head segment position
 		}
 
-		public static void draw(SpriteBatch spriteBatch)
-		{
-			foreach(Body_Segment element in body_queue) //iterate through all body sements...
-				element.Draw(spriteBatch); //...and draw them
-		}
-
 		public static void addSegment(Vector2 gridpos) //shorter version
 		{
 			body_queue.Enqueue(new Body_Segment(Game1.graphics.GraphicsDevice, gridpos));
@@ -101,6 +113,20 @@ namespace Snake
 		{
 			if (!(MaxSegments >= body_queue.Count))
 				body_queue.Dequeue();
+		}
+
+		public static List<Vector2> GetBodyPositions()
+		{
+			List<Vector2> retval = new List<Vector2>();
+			foreach(Body_Segment segment in body_queue)
+				retval.Add(segment.GridPosition);
+			return retval;
+		}
+
+		public static void draw(SpriteBatch spriteBatch)
+		{
+			foreach(Body_Segment segment in body_queue) //iterate through all body sements...
+				segment.Draw(spriteBatch); //...and draw them
 		}
 	}
 }
