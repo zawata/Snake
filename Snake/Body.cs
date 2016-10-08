@@ -9,15 +9,16 @@ namespace Snake
 {
 	public static class Body
 	{
-		public static int Max_Segments {get; set;}
+		public static int MaxSegments {get; set;}
+		public static Vector2 HeadPosition { get; private set; }
 		public static int currentDirection {get; private set;} = 0;
 
 		private static Queue<Body_Segment> body_queue = new Queue<Body_Segment>();
 
 		static Body()
 		{
-			Max_Segments = 5;
-			addSegment(new Vector2(1,1));
+			MaxSegments = 5;
+			addSegment(new Vector2(0,0));
 		}
 
 		public static void move(Vector2 pos)
@@ -27,7 +28,7 @@ namespace Snake
 		}
 		public static Vector2 getNextPosition()
 		{
-			//direction
+			//numeric directions
 			// 1 = left
 			// 2 = up
 			// 3 = right
@@ -87,7 +88,7 @@ namespace Snake
 
 		public static void draw(SpriteBatch spriteBatch)
 		{
-			foreach (Body_Segment element in body_queue) //iterate through all body sements...
+			foreach(Body_Segment element in body_queue) //iterate through all body sements...
 				element.Draw(spriteBatch); //...and draw them
 		}
 
@@ -98,14 +99,8 @@ namespace Snake
 
 		public static void drop_last_Segment()
 		{
-			if (Max_Segments >= body_queue.Count) 
-				return;
-			body_queue.Dequeue();
-		}
-
-		public static int ConvertCoord(int num) //from grid to window coord
-		{
-			return (num * 25) + 5; 
+			if (!(MaxSegments >= body_queue.Count))
+				body_queue.Dequeue();
 		}
 	}
 }

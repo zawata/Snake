@@ -1,19 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Snake
 {
-	class Body_Segment
+	class Food
 	{
 		public Vector2 GridPosition { get; private set; }
 		private Texture2D texture;
 
-		public Body_Segment(GraphicsDevice graphicsdevice, Vector2 local)
+		public Food(GraphicsDevice graphicsdevice, Vector2 local)
 		{
 			this.GridPosition = local;
 
 			texture = new Texture2D(graphicsdevice, 1, 1, false, SurfaceFormat.Color);
-			texture.SetData<Color>(new Color[] { Color.White });
+			texture.SetData<Color>(new Color[] { Color.Green });
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

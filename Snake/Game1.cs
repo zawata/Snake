@@ -16,6 +16,9 @@ namespace Snake
 		private int frameCounter = 0;
 		private TimeSpan elapsedTime = TimeSpan.Zero;
 
+		private Food food = null;
+		private bool foodEaten = false;
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -25,23 +28,20 @@ namespace Snake
 		protected override void Initialize()
 		{
 			base.Initialize();
-		}
-
-		protected override void LoadContent()
-		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+			Screen.setScreen();
+			food = new Food(GraphicsDevice, new Vector2(3,3));
 		}
 
-		protected override void UnloadContent()
-		{
-		}
+		protected override void LoadContent() {}
+		protected override void UnloadContent() {}
 
 		protected override void Update(GameTime gameTime)
 		{
-			Vector2 NextPosition;
-			
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
+
+			Vector2 nextPosition;
 
 			elapsedTime += gameTime.ElapsedGameTime;
 
@@ -50,17 +50,26 @@ namespace Snake
 				elapsedTime -= TimeSpan.FromSeconds(1.0F/FPS);
 				frameRate = frameCounter;
 				frameCounter = 0;
+
+				//
+				//actual game code starts here
+				//
+				nextPosition = Body.getNextPosition();
+				nextPosition = Screen.checkBounds(nextPosition);
+				if(nextPosition.Equals(food.GridPosition))
+				{
+					Body.MaxSegments++;
+					foodEaten = true;
+				}
+				Body.move(nextPosition);
 			}
-			else
+
+			if (foodEaten)
 			{
-				base.Update(gameTime);
-				return;
+				foodEaten = false;
 			}
-
-			NextPosition = Body.getNextPosition();
-			Body.move(NextPosition);
-
 			base.Update(gameTime);
+			return;
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -68,6 +77,7 @@ namespace Snake
 			frameCounter++;
 
 			GraphicsDevice.Clear(Color.Black);
+
 			Body.draw(spriteBatch);
 			base.Draw(gameTime);
 		}
